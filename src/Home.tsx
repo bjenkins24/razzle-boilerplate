@@ -1,15 +1,17 @@
-import * as React from 'react';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import logo from './react.svg';
 
 import './Home.css';
 
-class Home extends React.Component<{}, {}> {
+class Home extends Component<{}, {}> {
   public render() {
     return (
       <div className="Home">
         <div className="Home-header">
           <img src={logo} className="Home-logo" alt="logo" />
           <h2>Welcome to Razzles</h2>
+          <Link to="sup">sup</Link>
         </div>
         <p className="Home-intro">
           To get started, edit <code>src/App.tsx</code> or{' '}

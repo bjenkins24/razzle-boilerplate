@@ -1,15 +1,17 @@
-"use strict";
+'use strict';
+
+const { ReactLoadablePlugin } = require('react-loadable/webpack');
 
 module.exports = {
   modify(baseConfig, { target, dev }, webpack) {
     const config = Object.assign({}, baseConfig);
 
     config.resolve.extensions = config.resolve.extensions.concat([
-      ".ts",
-      ".tsx"
+      '.ts',
+      '.tsx'
     ]);
 
-    config.devtool = "cheap-module-source-map";
+    config.devtool = 'cheap-module-source-map';
 
     // Locate eslint-loader and remove it (we're using tslint instead)
     config.module.rules = config.module.rules.filter(
@@ -18,7 +20,7 @@ module.exports = {
           Array.isArray(rule.use) &&
           rule.use.length > 0 &&
           rule.use[0].options &&
-          "useEslintrc" in rule.use[0].options
+          'useEslintrc' in rule.use[0].options
         )
     );
 
@@ -35,7 +37,7 @@ module.exports = {
     const tsLoader = {
       include,
       test: /\.tsx?$/,
-      loader: "ts-loader",
+      loader: 'ts-loader',
       options: {
         // this will make errors clickable in `Problems` tab of VSCode
         visualStudioErrorFormat: true,
@@ -45,12 +47,12 @@ module.exports = {
 
     const tslintLoader = {
       include,
-      enforce: "pre",
+      enforce: 'pre',
       test: /\.tsx?$/,
-      loader: "tslint-loader",
+      loader: 'tslint-loader',
       options: {
         emitErrors: true,
-        configFile: "./tslint.json"
+        configFile: './tslint.json'
       }
     };
 
@@ -67,6 +69,19 @@ module.exports = {
     // - UNCOMMENT line 68
     //
     // config.module.rules.push(tsLoader)
+
+	// add custom plugins here
+    if (target === 'web') {
+      return {
+        ...config,
+        plugins: [
+          ...config.plugins,
+          new ReactLoadablePlugin({
+            filename: './build/react-loadable.json'
+          })
+        ]
+      };
+    }
 
     return config;
   }
