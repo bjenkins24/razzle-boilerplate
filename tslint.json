@@ -81,14 +81,12 @@
       "check-typecast"
     ],
     "early-exit": true,
-    "ext-curly": true,
     "no-accessor-recursion": true,
     "no-collapsible-if": true,
     "no-else-after-return": true,
     "no-return-undefined": true,
     "no-static-this": true,
     "no-unnecessary-else": true,
-    "no-unnecessary-type-annotation": true,
     "no-unused": true,
     "no-var-before-return": true,
     "object-shorthand-properties-first": true,
@@ -103,12 +101,12 @@
         "leadingUnderscore": "forbid",
         "trailingUnderscore": "forbid"
       },
-      // require all global constants to be camelCase or UPPER_CASE
+      // require all global constants to be camelCase or UPPER_CASE, or PascalCase (for react components)
       // all other variables and functions still need to be camelCase
       {
         "type": "variable",
         "modifiers": ["global", "const"],
-        "format": ["camelCase", "UPPER_CASE"]
+        "format": ["camelCase", "UPPER_CASE", "PascalCase"]
       },
       // override the above format option for exported constants to allow only UPPER_CASE
       {
